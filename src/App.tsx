@@ -197,7 +197,7 @@ function App() {
               <div className="button-container">
                 <div className="buy-row">
                   <div className="buy-label">
-                    <label>Wait for confirm each transaction in your wallet then refresh the app</label>
+                    <label>After each transaction Wait for confirm in your wallet then refresh the app</label>
                   </div>
                   <div className="button-row" style={{ marginTop: '30px' }} >
                     <button className="action-button" onClick={toggleHelp}> Help </button>
