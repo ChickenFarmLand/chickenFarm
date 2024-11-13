@@ -3,7 +3,7 @@ import { TonConnectButton, useTonAddress } from "@tonconnect/ui-react";
 import { useMasterContract } from "./hooks/useMasterContract";
 import { useWalletContract } from "./hooks/useWalletContract";
 import { useTonConnect } from "./hooks/useTonConnect";
-import { fromNano, address, Address } from "ton-core";
+import { address, Address } from "ton-core";
 import { useState, useEffect } from 'react';
 import WebApp from "@twa-dev/sdk";
 
@@ -47,7 +47,7 @@ function App() {
     }
   }, [connected]);
 
-  const { master_contract_address, total_supply ,sendDeployByMaster,send_withdraw_order, master_contract_balance, wc_addressss } = useMasterContract(
+  const {sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract(
     Address.parse(getOwnerTonAddress()),
     Address.parse(referal_address)
   );
@@ -137,7 +137,6 @@ function App() {
   }
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [withdrawAmount, setWithdrawAmount] = useState('');
-  const [MwithdrawAmount , setMwithdrawAmount] = useState ('');
 
   const handleWithdrawClick = () => {
     if (!isDataLoaded) { WebApp.showAlert("You Are Offline"); return; }
@@ -214,6 +213,7 @@ function App() {
                       <button className="action-button" onClick={toggleDetails}> Details </button>
                     )}
                   </div>
+                  <button className="action-button" onClick={() => localStorage.clear()}>delete local storage</button><br />
                 </div>
                 {showDetails && (
                   <div className="detail-content">
@@ -265,19 +265,6 @@ function App() {
               </div>
             )}
           </>
-        )}
-        {page_n === 1 && (
-          <div>
-            <b>Master contract Address</b>
-            <div>{master_contract_address}</div>
-            <b>Master contract Balance</b>
-            {master_contract_balance && <div className='Hint'>{fromNano(master_contract_balance)} ton</div>}<br />
-            <p>master has mint {total_supply} chicken </p><br/>
-            <button className="action-button" onClick={() => localStorage.clear()}>delete local storage</button><br />
-            <input type="text" value={MwithdrawAmount} onChange={(e) => setMwithdrawAmount(e.target.value)}></input><br />
-            <button className='action-button' onClick={() => {send_withdraw_order(Number(MwithdrawAmount))}}>withdraw</button><br />
-            <button className='action-button' onClick={() => {WebApp.showAlert(getOwnerTonAddress() + "---" + bbbbbb) }}>show alert</button><br />
-          </div>
         )}
         {page_n === 2 && (
           <div>
