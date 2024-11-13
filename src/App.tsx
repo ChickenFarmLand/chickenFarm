@@ -332,7 +332,7 @@ function App() {
                               <button className="action-button" onClick={() => {
                                 if (!isDataLoaded) { WebApp.showAlert("You Are Offline"); return; }
                                 if (showchickennumber < 1) { WebApp.showAlert("Without hens, you won't receive referral rewards."); return; }
-                                const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?startapp=${wallet_contract_address}`;
+                                const telegramShareUrl = `https://t.me/chickenFarmLand_bot/ChickenFarm?startapp=${wallet_contract_address}`;
                                 navigator.share({
                                   title: 'Chicken Farm Wallet Contract',
                                   text: 'Check out this wallet contract address!',
