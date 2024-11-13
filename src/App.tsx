@@ -24,7 +24,7 @@ function App() {
   const [page_n, setPageN] = useState(Number(getPageNumber()));
   const { connected } = useTonConnect();
   const [isdeployed, setIsdeployed] = useState<boolean>(false);
-  const [referal_address, setReferal_address] = useState("EQDkzMK31Gn9nad9m1jnhEXXl8nKHJCf4006iyP6lSNyGs2C");
+  const [referal_address, setReferal_address] = useState("EQDp2LvTw3R8LM3zGMVSGql4J2wl9ffMoT0M51BcedIyzxTN");
   const [showHelp, setShowHelp] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
