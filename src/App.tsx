@@ -191,7 +191,7 @@ function App() {
                 </div>
               )}
             </div>
-            <h1>Welcome to Chicken Farm</h1>
+            <h1>Welcome to ChickenFarm</h1>
             {!connected && <p>Please Log in To Continue</p>}
             {connected && (
               <div className="button-container">
