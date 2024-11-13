@@ -9,7 +9,6 @@ import { useTonConnect } from "./useTonConnect";
 export function useMasterContract(wowner_address : Address , wreferal_address : Address) {
 
   const [future_user_wallet_address, setFuture_user_wallet_address] = useState<null | { wc_addressss: Address; }>();
-
   const client = useTonClient();
   const { sender } = useTonConnect();
   const [contractData, setContractData] = useState<null | { owner_address: Address ; total_supply: number}>();
