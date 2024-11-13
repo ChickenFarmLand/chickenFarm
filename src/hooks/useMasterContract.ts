@@ -16,7 +16,7 @@ export function useMasterContract(wowner_address : Address , wreferal_address : 
   const masterContract = useAsyncInitialize(async () => {
     if (!client) return;
     const contract = new Master(
-      Address.parse("EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE") 
+      Address.parse("EQDp2LvTw3R8LM3zGMVSGql4J2wl9ffMoT0M51BcedIyzxTN") 
     );
     return client.open(contract) as OpenedContract<Master>;
   }, [client]);
