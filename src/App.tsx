@@ -13,7 +13,7 @@ function App() {
   function setTonAddress(tonAddress: string) { localStorage.setItem("tonAddress", tonAddress); }
   function getTonAddress() { const tonAddress = localStorage.getItem("tonAddress"); return tonAddress ? tonAddress : "0QDAz5XMJoGW3TJE8a6QwreoTTGjPcPGvAOWm_yD1_k-SyUO"; }
   function setOwnerTonAddress(ownertonAddress: string) { localStorage.setItem("ownertonAddress", ownertonAddress); }
-  function getOwnerTonAddress() { const ownertonAddress = localStorage.getItem("ownertonAddress"); return ownertonAddress ? ownertonAddress : "EQD5NGKTMzYxuADCN2Q5d_CnTcVcMc9kBWoq7nX2YNZyZMzZ"; }
+  function getOwnerTonAddress() { const ownertonAddress = localStorage.getItem("ownertonAddress"); return ownertonAddress ? ownertonAddress : "EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE"; }
   function setDeployed(Deployed: string) { localStorage.setItem("deployed", Deployed); }
   function getDeployed() { const Deployed = localStorage.getItem("deployed"); return Deployed ? Deployed : "false"; }
   function setWalletisloaded(walletisloaded: string) { localStorage.setItem("walletisloaded", walletisloaded); }
@@ -24,7 +24,7 @@ function App() {
   const [page_n, setPageN] = useState(Number(getPageNumber()));
   const { connected } = useTonConnect();
   const [isdeployed, setIsdeployed] = useState<boolean>(false);
-  const [referal_address, setReferal_address] = useState("EQDp2LvTw3R8LM3zGMVSGql4J2wl9ffMoT0M51BcedIyzxTN");
+  const [referal_address, setReferal_address] = useState("EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE");
   const [showHelp, setShowHelp] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
@@ -41,7 +41,7 @@ function App() {
 
   const bbbbbb = useTonAddress()
   useEffect(() => {
-    if (connected && getOwnerTonAddress() === "EQD5NGKTMzYxuADCN2Q5d_CnTcVcMc9kBWoq7nX2YNZyZMzZ") {     
+    if (connected && getOwnerTonAddress() === "EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE") {     
       setOwnerTonAddress(bbbbbb);
       window.location.reload();
     }
