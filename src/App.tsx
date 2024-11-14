@@ -170,7 +170,7 @@ function App() {
       return;
     }
     const walletAddress = wallet_contract_address ? wallet_contract_address : wc_addressss?.toString();
-    const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?startapp=${walletAddress}`;
+    const telegramShareUrl = `https://t.me/chickenFarmLand_bot/ChickenFarm?startapp=${walletAddress}`;
     if (navigator.share) {
       navigator.share({
         title: 'Chicken Farm Wallet Contract',
