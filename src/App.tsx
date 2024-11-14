@@ -41,13 +41,13 @@ function App() {
 
   const bbbbbb = useTonAddress()
   useEffect(() => {
-    if (connected && getOwnerTonAddress() === "EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE") {     
+    if (connected && getOwnerTonAddress() === "EQD6nwTiwkZdCboXJagUXiiOIWSGIChxv_p5uNO00-NOoluE") {
       setOwnerTonAddress(bbbbbb);
       window.location.reload();
     }
   }, [connected]);
 
-  const {sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract(
+  const { sendDeployByMaster, master_contract_balance, wc_addressss } = useMasterContract(
     Address.parse(getOwnerTonAddress()),
     Address.parse(referal_address)
   );
@@ -88,7 +88,7 @@ function App() {
   const toggleDetails = () => { setShowDetails(!showDetails); setShowHelp(false); };
   const [showDialog, setShowDialog] = useState(false);
   const [chickenCount, setChickenCount] = useState(1);
-  const [actionType, setActionType] = useState<'ton' | 'egg'>('ton'); 
+  const [actionType, setActionType] = useState<'ton' | 'egg'>('ton');
 
   const handleDialogOpen = (type: 'ton' | 'egg') => {
     if (!isDataLoaded) { WebApp.showAlert("You Are Offline"); return; }
@@ -96,7 +96,7 @@ function App() {
     setShowDialog(true);
   };
 
-  const buyhensbyeggs = () =>   {
+  const buyhensbyeggs = () => {
     if (realeggnumber < 30) { WebApp.showAlert("You need at least 30 egg to buy hen."); return; }
     handleDialogOpen('egg')
   }
@@ -158,6 +158,45 @@ function App() {
     }
   };
 
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
+  const handleShare = () => {
+    if (!isDataLoaded) {
+      WebApp.showAlert("You Are Offline");
+      return;
+    }
+    if (showchickennumber < 1) {
+      WebApp.showAlert("Without hens, you won't receive referral rewards.");
+      return;
+    }
+    const walletAddress = wallet_contract_address ? wallet_contract_address : wc_addressss?.toString();
+    const telegramShareUrl = `https://t.me/Ch_farm_bot/ChickenFarm?startapp=${walletAddress}`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Chicken Farm Wallet Contract',
+        text: 'Check out this wallet contract address!',
+        url: telegramShareUrl,
+      })
+    } else {
+      showFallback(telegramShareUrl);
+    }
+  };
+  const showFallback = (url: string) => {
+    setShareUrl(url);
+    setShowShareDialog(true);
+  };
+  const copyToClipboard = () => {
+    const tempTextarea = document.createElement("textarea");
+    tempTextarea.value = shareUrl;
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select(); document.execCommand("copy");
+    document.body.removeChild(tempTextarea);
+    WebApp.showAlert("Link copied to clipboard!");
+  };
+  const closeShareDialog = () => {
+    setShowShareDialog(false);
+  };
+
   return (
     <div className="wrapper">
       <div className="top-section">
@@ -179,7 +218,7 @@ function App() {
       <div className="down-section" >
         {page_n === 0 && (
           <>
-                      <div className="status-indicator">
+            <div className="status-indicator">
               {isMDataLoaded ? (
                 <div style={{ color: 'green', margin: '5px' }}>
                   <span>🟢</span>  connected
@@ -306,7 +345,7 @@ function App() {
                             </div>
                             <div className="button-row">
                               <button className="action-button" onClick={() => handleDialogOpen('ton')}>From Wallet</button>
-                              <button className="action-button" onClick={ buyhensbyeggs}>From Eggs</button>
+                              <button className="action-button" onClick={buyhensbyeggs}>From Eggs</button>
                             </div>
                           </div>
                           <div className="buy-row">
@@ -315,16 +354,21 @@ function App() {
                             </div>
                             <div className="button-row">
                               <button className="action-button" onClick={warningloweggs}>Get Earned Eggs</button>
-                              <button className="action-button" onClick={() => {
-                                if (!isDataLoaded) { WebApp.showAlert("You Are Offline"); return; }
-                                if (showchickennumber < 1) { WebApp.showAlert("Without hens, you won't receive referral rewards."); return; }
-                                const telegramShareUrl = `https://t.me/chickenFarmLand_bot/ChickenFarm?startapp=${wallet_contract_address}`;
-                                navigator.share({
-                                  title: 'Chicken Farm Wallet Contract',
-                                  text: 'Check out this wallet contract address!',
-                                  url: telegramShareUrl,
-                                });
-                              }}>Share Referal</button>
+                              <button className="action-button" onClick={handleShare}>Share Referal</button>
+                              {/* Share Dialog */}
+                              {showShareDialog && (
+                                <div className="dialog-overlay">
+                                  <div className="dialog-content">
+                                    <h2>Your browser does not support sharing.</h2>
+                                    <p>Please copy the link below and share it manually:</p>
+                                    <label>{shareUrl}</label>
+                                    <div className="dialog-buttons">
+                                      <button onClick={copyToClipboard}>Copy Link</button>
+                                      <button onClick={closeShareDialog}>Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </div>
                           <div className="">
@@ -346,7 +390,7 @@ function App() {
                                     />
                                   </label>
                                 </div>
-                                <div className="dialog-buttons" style={{marginTop : "10px"}}>
+                                <div className="dialog-buttons" style={{ marginTop: "10px" }}>
                                   <button onClick={() => setIsDialogVisible(false)}>Cancel</button>
                                   <button onClick={handleWithdraw}>Withdraw</button>
                                 </div>
